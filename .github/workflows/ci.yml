@@ -1,4 +1,6 @@
 name: Devops-github-pipeline
+permissions:
+  contents: write
 
 on:
   workflow_dispatch:
