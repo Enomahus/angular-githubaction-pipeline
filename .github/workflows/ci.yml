@@ -3,6 +3,9 @@ name: Devops-github-pipeline
 on:
   workflow_dispatch:
 
+env:
+  NODE-VESION: 20
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +15,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE-VESION }}
       - name: Installation des dépendances
         run: npm install
       - name: Build project
