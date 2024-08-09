@@ -5,9 +5,12 @@ on:
 
 env:
   NODE-VESION: 20
+  BUILD_STATUS: "Build OK"
 
 jobs:
   build:
+    env:
+      VAR_BUILD: "TEST"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -25,3 +28,26 @@ jobs:
         with:
           name: build-files
           path: ./dist
+          run: echo $BUILD_STATUS
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Télécharger l'artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: ./dist
+      - name: Deploiement sur Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          commit_message: ${{ github.event.sender.name }}
+      - name: Affichage des variable
+        run: |
+          echo ${{ secrets.OUR_FIRST_TOKEN }}
+          echo ${{ env.OUR_SECOND_VAR }}
+
+
