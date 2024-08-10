@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-files
-          path: ./dist/
+          path: ./docs/
           run: echo $BUILD_STATUS
 
   deploy:
@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-files
-          path: ./dist/
+          path: ./docs/
       - name: Deploiement sur Github Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
